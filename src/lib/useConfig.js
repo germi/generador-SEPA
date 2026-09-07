@@ -29,7 +29,7 @@ function defaultConfig() {
   return {
     creditorName: 'AFA Fructuós Gelabert',
     creditorId: '',
-    creditorIban: '',
+    creditorIban: 'ES9600810199520001407643',
     creditorBic: '',
     quotaAmount: 50,
     conceptPrefix: `Quota AFA curs ${currentCourseLabel()}`,

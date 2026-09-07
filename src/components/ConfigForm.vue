@@ -110,22 +110,23 @@ const emit = defineEmits(['clear', 'sync-rows'])
           class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
         />
         <p class="mt-1 text-xs text-slate-400">
-          Valor per defecte per a totes les files; editable individualment si cal.
+          S'aplica automàticament a totes les famílies (no és un camp per fila).
         </p>
       </div>
     </div>
 
     <div class="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-slate-50 px-4 py-3">
       <p class="text-xs text-slate-500">
-        Si canvies l'import o la data de signatura del mandat aquí un cop ja has pujat l'Excel,
-        cal sincronitzar-los amb la taula de sota perquè s'apliquin a totes les files.
+        Si canvies l'import aquí un cop ja has pujat l'Excel, cal sincronitzar-lo amb la taula de
+        sota perquè s'apliqui a totes les files (la data de signatura del mandat i la data de
+        cobrament s'apliquen sempre automàticament, no cal sincronitzar-les).
       </p>
       <button
         type="button"
         class="shrink-0 rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-100"
         @click="emit('sync-rows')"
       >
-        Sincronitza import i data a totes les files
+        Sincronitza l'import a totes les files
       </button>
     </div>
   </section>

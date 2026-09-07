@@ -28,7 +28,6 @@ function buildRowsFromFamilies(families) {
     childrenNames: fam.children.map((c) => c.name).join(', ') || '—',
     curs: fam.children.map((c) => c.curs).filter(Boolean).join(', '),
     amount: config.quotaAmount ? Number(config.quotaAmount) : 0,
-    mandateDate: config.mandateSignatureDate || '',
     include: fam.rowWarnings.length === 0,
     warnings: [...fam.rowWarnings],
   }))
@@ -57,7 +56,6 @@ async function onFileSelected(file) {
 function syncRowsFromConfig() {
   rows.value.forEach((r) => {
     if (config.quotaAmount !== '' && config.quotaAmount != null) r.amount = Number(config.quotaAmount)
-    if (config.mandateSignatureDate) r.mandateDate = config.mandateSignatureDate
   })
 }
 
@@ -73,6 +71,7 @@ const creditorErrors = computed(() => {
     errs.push(`IBAN de l’AFA invàlid: ${validateIban(config.creditorIban).reason}.`)
   }
   if (!config.collectionDate) errs.push('Falta la data de cobrament.')
+  if (!config.mandateSignatureDate) errs.push('Falta la data de signatura del mandat.')
   return errs
 })
 
@@ -83,7 +82,6 @@ const rowErrors = computed(() => {
   includedRows.value.forEach((r) => {
     if (!r.mandateRef) errs.push(`${r.titular || r.id}: falta la referència del mandat.`)
     if (!validateIban(r.iban).valid) errs.push(`${r.titular || r.id}: IBAN invàlid.`)
-    if (!r.mandateDate) errs.push(`${r.titular || r.id}: falta la data de signatura del mandat.`)
     if (!r.amount || Number(r.amount) <= 0) errs.push(`${r.titular || r.id}: import invàlid.`)
   })
   return errs
@@ -102,7 +100,7 @@ function generate() {
     debtorIban: r.iban,
     amount: Number(r.amount),
     mandateId: r.mandateRef,
-    mandateSignatureDate: r.mandateDate,
+    mandateSignatureDate: config.mandateSignatureDate,
     remittanceInfo: `${config.conceptPrefix || 'Quota AFA'} - ${r.childrenNames}`,
   }))
 
