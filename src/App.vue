@@ -25,6 +25,7 @@ function buildRowsFromFamilies(families) {
     iban: fam.iban,
     dni: fam.dni,
     mandateRef: fam.mandateRef,
+    childrenList: fam.children.map((c) => c.name),
     childrenNames: fam.children.map((c) => c.name).join(', ') || '—',
     curs: fam.children.map((c) => c.curs).filter(Boolean).join(', '),
     amount: config.quotaAmount ? Number(config.quotaAmount) : 0,

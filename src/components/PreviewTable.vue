@@ -68,7 +68,10 @@ function toggleAll(value) {
             <td class="py-2 pr-3">
               <input v-model="row.titular" type="text" class="w-40 rounded border border-slate-200 px-2 py-1 text-sm" />
             </td>
-            <td class="py-2 pr-3 text-slate-600">{{ row.childrenNames }}</td>
+            <td class="py-2 pr-3 text-slate-600">
+              <div v-for="(name, i) in row.childrenList" :key="i" class="text-xs leading-snug">{{ name }}</div>
+              <span v-if="!row.childrenList.length" class="text-xs">—</span>
+            </td>
             <td class="py-2 pr-3">
               <input v-model="row.iban" type="text" class="w-56 rounded border border-slate-200 px-2 py-1 font-mono text-xs" />
               <div class="mt-0.5 text-xs" :class="ibanCheck(row).valid ? 'text-emerald-600' : 'text-red-600'">
