@@ -28,7 +28,7 @@ function defaultConfig() {
 
   return {
     creditorName: 'AFA Fructuós Gelabert',
-    creditorId: '',
+    creditorId: 'ES67000G63755813',
     creditorIban: 'ES9600810199520001407643',
     creditorBic: '',
     quotaAmount: 50,
