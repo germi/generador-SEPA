@@ -7,6 +7,8 @@ famílies, llest per pujar a **BSOnline** (Banc Sabadell) o a qualsevol altre ba
 Tot el processament passa al navegador: l'Excel, els IBAN i els DNI **no surten mai
 del teu ordinador** (no hi ha cap crida de xarxa ni cap servidor implicat).
 
+Versió publicada, llesta per fer servir sense instal·lar res: https://generador-sepa.netlify.app/
+
 ## Ús
 
 1. `npm install`
