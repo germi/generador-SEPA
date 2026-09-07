@@ -19,12 +19,24 @@ function toDateInputValue(date) {
   return `${y}-${m}-${d}`
 }
 
+// Afegeix n dies hàbils (dilluns-divendres, sense festius) a una data.
+function addBusinessDays(date, n) {
+  const result = new Date(date)
+  let remaining = n
+  while (remaining > 0) {
+    result.setDate(result.getDate() + 1)
+    const day = result.getDay() // 0 = diumenge, 6 = dissabte
+    if (day !== 0 && day !== 6) remaining -= 1
+  }
+  return result
+}
+
 function defaultConfig() {
   const today = new Date()
-  const collectionDefault = new Date(today)
-  // 3 dies de marge per defecte (les normes SEPA exigeixen avisar amb prou
-  // antelació abans de la data de cobrament, sobretot per a primers cobraments FRST).
-  collectionDefault.setDate(collectionDefault.getDate() + 3)
+  // 4 dies hàbils de marge per defecte (les normes SEPA exigeixen avisar amb
+  // prou antelació abans de la data de cobrament, sobretot per a primers
+  // cobraments FRST); no compta dissabtes ni diumenges.
+  const collectionDefault = addBusinessDays(today, 4)
 
   return {
     creditorName: 'AFA Fructuós Gelabert',

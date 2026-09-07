@@ -232,13 +232,12 @@ function generate() {
           <ol class="mt-3 space-y-2 text-sm text-slate-600">
             <li><span class="font-medium text-slate-800">1.</span> Entra a BSOnline amb les claus de l'AFA.</li>
             <li>
-              <span class="font-medium text-slate-800">2.</span> Ves a l'apartat de
-              <span class="font-medium">Cobraments i pagaments → Fitxers → Generació/Presentació de fitxers</span>,
-              i dins d'aquest tria l'operativa <span class="font-medium">SEPA Càrrecs Directes (CORE)</span>.
-              Segons la versió del portal, aquest apartat es pot anomenar
-              "Bústia de fitxers" o "Presentació de fitxers" — si no el localitzes amb aquest
-              nom exacte, busca l'opció que permeti <span class="font-medium">pujar un fitxer ja generat</span>
-              (a diferència de l'opció "generació online", que és per crear-lo fila a fila manualment).
+              <span class="font-medium text-slate-800">2.</span> Dins l'entorn d'empreses de BSOnline, ves a
+              <span class="font-medium">Fitxers → Enviar Fitxers</span>, i quan et demani l'operativa tria
+              <span class="font-medium">SEPA Càrrecs Directes (CORE)</span>. Si el teu BSOnline mostra els
+              menús amb un altre nom, busca l'opció que permeti
+              <span class="font-medium">pujar un fitxer ja generat</span> (a diferència de l'opció
+              "generació online", que és per crear-lo fila a fila manualment).
             </li>
             <li><span class="font-medium text-slate-800">3.</span> Selecciona per pujar el fitxer .xml que t'has descarregat d'aquí.</li>
             <li>
