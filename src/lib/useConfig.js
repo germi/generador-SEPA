@@ -13,7 +13,19 @@ export function currentCourseLabel(date = new Date()) {
   return `${startYear}-${startYear + 1}`
 }
 
+// Formats a Date as 'YYYY-MM-DD' using local time (matches <input type="date">).
+function toDateInputValue(date) {
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
+
 function defaultConfig() {
+  const today = new Date()
+  const tomorrow = new Date(today)
+  tomorrow.setDate(tomorrow.getDate() + 1)
+
   return {
     creditorName: 'AFA Fructuós Gelabert',
     creditorId: '',
@@ -21,8 +33,8 @@ function defaultConfig() {
     creditorBic: '',
     quotaAmount: 50,
     conceptPrefix: `Quota AFA curs ${currentCourseLabel()}`,
-    collectionDate: '',
-    mandateSignatureDate: '',
+    collectionDate: toDateInputValue(tomorrow),
+    mandateSignatureDate: toDateInputValue(today),
   }
 }
 
