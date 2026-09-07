@@ -11,7 +11,7 @@ const emit = defineEmits(['clear', 'sync-rows'])
       <div>
         <h2 class="text-base font-semibold text-slate-900">2. Dades de l'AFA i de la remesa</h2>
         <p class="mt-1 text-sm text-slate-500">
-          Es desa només al teu navegador (localStorage) — no s'envia enlloc.
+          No es desa enlloc (ni al navegador ni a cap servidor) — cal omplir-ho cada vegada.
         </p>
       </div>
       <button
@@ -19,7 +19,7 @@ const emit = defineEmits(['clear', 'sync-rows'])
         class="shrink-0 text-xs font-medium text-slate-400 hover:text-red-600"
         @click="emit('clear')"
       >
-        Esborra dades desades
+        Restableix als valors per defecte
       </button>
     </div>
 

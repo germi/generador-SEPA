@@ -105,7 +105,14 @@ export function buildPain008Xml({
       <NbOfTxs>${nbOfTxs}</NbOfTxs>
       <CtrlSum>${ctrlSum}</CtrlSum>
       <InitgPty>
-        <Nm>${escapeXml(creditorName)}</Nm>
+        <Nm>${escapeXml(creditorName)}</Nm>${creditorId ? `
+        <Id>
+          <OrgId>
+            <Othr>
+              <Id>${escapeXml(creditorId)}</Id>
+            </Othr>
+          </OrgId>
+        </Id>` : ''}
       </InitgPty>
     </GrpHdr>
     <PmtInf>

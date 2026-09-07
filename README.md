@@ -18,13 +18,14 @@ Versió publicada, llesta per fer servir sense instal·lar res: https://generado
       `TITULAR`, `IBAN`, `DNI`, `REFERÈNCIA MANDAT`. Els fills/es d'una mateixa
       família es detecten automàticament (files sense referència de mandat pròpia
       es consideren germans/es de la família anterior).
-   2. Omple les dades del creditor (nom de l'AFA, identificador de creditor SEPA,
-      IBAN, BIC opcional), l'import de la quota, el concepte, la data de cobrament
-      i la data de signatura del mandat. Aquestes dades es desen només al teu
-      navegador (`localStorage`) perquè no les hagis de tornar a escriure cada any.
-   3. Revisa la taula: pots desmarcar famílies, corregir IBAN/imports/dates fila a
-      fila. Les files amb IBAN invàlid o sense referència de mandat es desmarquen
-      automàticament i cal revisar-les.
+   2. Omple/revisa les dades del creditor (nom de l'AFA, identificador de creditor
+      SEPA, IBAN, BIC opcional), l'import de la quota, el concepte, la data de
+      cobrament i la data de signatura del mandat. La majoria surten preomplertes
+      per defecte, però no es desen enlloc — no hi ha `localStorage` ni cap altra
+      persistència, cal revisar-les cada vegada que obris l'aplicació.
+   3. Revisa la taula: pots desmarcar famílies, corregir IBAN/imports/referència de
+      mandat fila a fila. Les files amb IBAN invàlid o sense referència de mandat
+      es desmarquen automàticament i cal revisar-les.
    4. Descarrega el fitxer `.xml` i puja'l directament a BSOnline (Adeudos Directos
       / Càrrecs Directes SEPA → esquema CORE).
 

@@ -1,6 +1,4 @@
-import { reactive, watch } from 'vue'
-
-const STORAGE_KEY = 'afa-sepa-config-v1'
+import { reactive } from 'vue'
 
 /**
  * School-year label for a given date: from 1 September of year X to 31 August of
@@ -40,45 +38,14 @@ function defaultConfig() {
   }
 }
 
-function load() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return defaultConfig()
-    const stored = JSON.parse(raw)
-    // Don't let a blank saved field (e.g. from an earlier version of this app,
-    // or a field the user cleared) permanently hide a meaningful default —
-    // only non-empty saved values override the computed defaults.
-    const nonEmptyStored = Object.fromEntries(
-      Object.entries(stored).filter(([, v]) => v !== '' && v != null),
-    )
-    return { ...defaultConfig(), ...nonEmptyStored }
-  } catch {
-    return defaultConfig()
-  }
-}
-
+// No localStorage, no persistence: the config always starts fresh from the
+// computed defaults on every page load. Nothing about the AFA's bank data is
+// ever written to the browser's storage.
 export function useConfig() {
-  const config = reactive(load())
-
-  watch(
-    config,
-    (val) => {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(val))
-      } catch {
-        // localStorage unavailable — ignore, config just won't persist.
-      }
-    },
-    { deep: true },
-  )
+  const config = reactive(defaultConfig())
 
   function clear() {
     Object.assign(config, defaultConfig())
-    try {
-      localStorage.removeItem(STORAGE_KEY)
-    } catch {
-      // ignore
-    }
   }
 
   return { config, clear }
