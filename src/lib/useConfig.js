@@ -23,8 +23,10 @@ function toDateInputValue(date) {
 
 function defaultConfig() {
   const today = new Date()
-  const tomorrow = new Date(today)
-  tomorrow.setDate(tomorrow.getDate() + 1)
+  const collectionDefault = new Date(today)
+  // 3 dies de marge per defecte (les normes SEPA exigeixen avisar amb prou
+  // antelació abans de la data de cobrament, sobretot per a primers cobraments FRST).
+  collectionDefault.setDate(collectionDefault.getDate() + 3)
 
   return {
     creditorName: 'AFA Fructuós Gelabert',
@@ -33,7 +35,7 @@ function defaultConfig() {
     creditorBic: '',
     quotaAmount: 50,
     conceptPrefix: `Quota AFA curs ${currentCourseLabel()}`,
-    collectionDate: toDateInputValue(tomorrow),
+    collectionDate: toDateInputValue(collectionDefault),
     mandateSignatureDate: toDateInputValue(today),
   }
 }
