@@ -103,30 +103,32 @@ const emit = defineEmits(['clear', 'sync-rows'])
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-slate-700">Data de signatura del mandat</label>
+        <label class="block text-sm font-medium text-slate-700">Data de signatura del mandat (per defecte)</label>
         <input
           v-model="config.mandateSignatureDate"
           type="date"
           class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
         />
         <p class="mt-1 text-xs text-slate-400">
-          S'aplica automàticament a totes les famílies (no és un camp per fila).
+          És la data en què cada família va signar l'autorització de càrrec (idealment ve de
+          l'Excel, fila a fila); si no hi consta, s'omple amb aquesta data per defecte. Es pot
+          revisar i corregir per família a la taula de sota.
         </p>
       </div>
     </div>
 
     <div class="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-slate-50 px-4 py-3">
       <p class="text-xs text-slate-500">
-        Si canvies l'import aquí un cop ja has pujat l'Excel, cal sincronitzar-lo amb la taula de
-        sota perquè s'apliqui a totes les files (la data de signatura del mandat i la data de
-        cobrament s'apliquen sempre automàticament, no cal sincronitzar-les).
+        Si canvies l'import o la data de signatura aquí un cop ja has pujat l'Excel, cal
+        sincronitzar-los amb la taula de sota perquè s'apliquin a totes les files (la data de
+        cobrament s'aplica sempre automàticament, no cal sincronitzar-la).
       </p>
       <button
         type="button"
         class="shrink-0 rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-100"
         @click="emit('sync-rows')"
       >
-        Sincronitza l'import a totes les files
+        Sincronitza l'import i la data a totes les files
       </button>
     </div>
   </section>

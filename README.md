@@ -15,17 +15,20 @@ Versió publicada, llesta per fer servir sense instal·lar res: https://generado
 2. `npm run dev` (o `npm run build` + serveix la carpeta `dist/` en qualsevol hosting estàtic)
 3. A l'aplicació:
    1. Puja l'Excel amb un full anomenat **"SEPA"** amb columnes `CURS`, `INFANT`,
-      `TITULAR`, `IBAN`, `DNI`, `REFERÈNCIA MANDAT`. Els fills/es d'una mateixa
-      família es detecten automàticament (files sense referència de mandat pròpia
-      es consideren germans/es de la família anterior).
+      `TITULAR`, `IBAN`, `DNI`, `REFERÈNCIA MANDAT` i, opcionalment,
+      `DATA SIGNATURA MANDAT`. Els fills/es d'una mateixa família es detecten
+      automàticament (files sense referència de mandat pròpia es consideren
+      germans/es de la família anterior).
    2. Omple/revisa les dades del creditor (nom de l'AFA, identificador de creditor
       SEPA, IBAN, BIC opcional), l'import de la quota, el concepte, la data de
-      cobrament i la data de signatura del mandat. La majoria surten preomplertes
-      per defecte, però no es desen enlloc — no hi ha `localStorage` ni cap altra
-      persistència, cal revisar-les cada vegada que obris l'aplicació.
+      cobrament i la data de signatura del mandat per defecte. La majoria surten
+      preomplertes per defecte, però no es desen enlloc — no hi ha `localStorage`
+      ni cap altra persistència, cal revisar-les cada vegada que obris l'aplicació.
    3. Revisa la taula: pots desmarcar famílies, corregir IBAN/imports/referència de
-      mandat fila a fila. Les files amb IBAN invàlid o sense referència de mandat
-      es desmarquen automàticament i cal revisar-les.
+      mandat/data de signatura fila a fila. La data de signatura ve de l'Excel quan
+      hi consta; si no, s'omple amb la data per defecte de l'apartat 2. Les files
+      amb IBAN invàlid, sense referència de mandat o sense data de signatura es
+      desmarquen automàticament i cal revisar-les.
    4. Descarrega el fitxer `.xml` i puja'l directament a BSOnline (Adeudos Directos
       / Càrrecs Directes SEPA → esquema CORE).
 

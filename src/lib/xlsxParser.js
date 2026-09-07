@@ -16,6 +16,13 @@ const HEADER_ALIASES = {
   IBAN: ['IBAN'],
   DNI: ['DNI', 'DNI/NIE', 'NIF'],
   MANDAT: ['REFERENCIA MANDAT', 'REF MANDAT', 'REFERENCIA DEL MANDAT', 'MANDAT'],
+  DATA_SIGNATURA: [
+    'DATA SIGNATURA MANDAT',
+    'DATA DE SIGNATURA DEL MANDAT',
+    'DATA DE SIGNATURA',
+    'DATA SIGNATURA',
+    'DATA MANDAT',
+  ],
 }
 
 function findColumnIndex(headerRow, keys) {
@@ -31,6 +38,31 @@ function cell(row, idx) {
   if (idx === -1 || idx == null) return ''
   const v = row[idx]
   return v == null ? '' : String(v).trim()
+}
+
+// Normalizes a date cell (which may arrive as 'DD/MM/YYYY', 'YYYY-MM-DD', or
+// other locale text since the sheet is read with raw: false) into the
+// 'YYYY-MM-DD' shape used by <input type="date">. Returns '' if unparseable.
+function normalizeDateCell(raw) {
+  const v = String(raw ?? '').trim()
+  if (!v) return ''
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v
+
+  const dmy = v.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/)
+  if (dmy) {
+    const [, d, mo, y] = dmy
+    return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`
+  }
+
+  const parsed = new Date(v)
+  if (!Number.isNaN(parsed.getTime())) {
+    const y = parsed.getFullYear()
+    const mo = String(parsed.getMonth() + 1).padStart(2, '0')
+    const d = String(parsed.getDate()).padStart(2, '0')
+    return `${y}-${mo}-${d}`
+  }
+
+  return ''
 }
 
 /**
@@ -57,6 +89,7 @@ function groupRowsIntoFamilies(rows, col) {
     const dni = cell(row, col.dni)
     const mandat = cell(row, col.mandat)
     const curs = cell(row, col.curs)
+    const mandateSignatureDate = normalizeDateCell(cell(row, col.dataSignatura))
 
     // Skip fully blank rows.
     if (!infant && !titular && !iban && !mandat) continue
@@ -70,6 +103,7 @@ function groupRowsIntoFamilies(rows, col) {
         iban,
         dni,
         mandateRef: mandat,
+        mandateSignatureDate,
         children: [],
         sourceRows: [],
         rowWarnings: [],
@@ -85,11 +119,16 @@ function groupRowsIntoFamilies(rows, col) {
         iban: '',
         dni: '',
         mandateRef: '',
+        mandateSignatureDate: '',
         children: [],
         sourceRows: [],
         rowWarnings: [],
       }
       families.push(current)
+    }
+
+    if (!current.mandateSignatureDate && mandateSignatureDate) {
+      current.mandateSignatureDate = mandateSignatureDate
     }
 
     if (infant) current.children.push({ name: infant, curs })
@@ -126,6 +165,9 @@ function mergeFamiliesBySharedIban(families) {
     existing.sourceRows.push(...fam.sourceRows)
     if (!existing.titular && fam.titular) existing.titular = fam.titular
     if (!existing.dni && fam.dni) existing.dni = fam.dni
+    if (!existing.mandateSignatureDate && fam.mandateSignatureDate) {
+      existing.mandateSignatureDate = fam.mandateSignatureDate
+    }
 
     if (!existing.mandateRef && fam.mandateRef) {
       existing.mandateRef = fam.mandateRef
@@ -173,6 +215,7 @@ export async function parseSepaWorkbook(file) {
     iban: findColumnIndex(headerRow, HEADER_ALIASES.IBAN),
     dni: findColumnIndex(headerRow, HEADER_ALIASES.DNI),
     mandat: findColumnIndex(headerRow, HEADER_ALIASES.MANDAT),
+    dataSignatura: findColumnIndex(headerRow, HEADER_ALIASES.DATA_SIGNATURA),
   }
 
   const warnings = []

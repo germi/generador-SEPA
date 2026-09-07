@@ -51,6 +51,7 @@ function toggleAll(value) {
             <th class="py-2 pr-3">Fills/es</th>
             <th class="py-2 pr-3">IBAN</th>
             <th class="py-2 pr-3">Referència mandat</th>
+            <th class="py-2 pr-3">Data signatura</th>
             <th class="py-2 pr-3 text-right">Import (€)</th>
             <th class="py-2 pr-3">Avisos</th>
           </tr>
@@ -80,6 +81,9 @@ function toggleAll(value) {
             </td>
             <td class="py-2 pr-3">
               <input v-model="row.mandateRef" type="text" class="w-32 rounded border border-slate-200 px-2 py-1 font-mono text-xs" />
+            </td>
+            <td class="py-2 pr-3">
+              <input v-model="row.mandateDate" type="date" class="w-36 rounded border border-slate-200 px-2 py-1 text-xs" />
             </td>
             <td class="py-2 pr-3 text-right">
               <input v-model.number="row.amount" type="number" step="0.01" min="0" class="w-24 rounded border border-slate-200 px-2 py-1 text-right text-sm" />
