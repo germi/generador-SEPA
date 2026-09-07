@@ -30,7 +30,14 @@ function load() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return defaultConfig()
-    return { ...defaultConfig(), ...JSON.parse(raw) }
+    const stored = JSON.parse(raw)
+    // Don't let a blank saved field (e.g. from an earlier version of this app,
+    // or a field the user cleared) permanently hide a meaningful default —
+    // only non-empty saved values override the computed defaults.
+    const nonEmptyStored = Object.fromEntries(
+      Object.entries(stored).filter(([, v]) => v !== '' && v != null),
+    )
+    return { ...defaultConfig(), ...nonEmptyStored }
   } catch {
     return defaultConfig()
   }
